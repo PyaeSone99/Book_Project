@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:replace="layout/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-10">
+
+      </div>
+      <div class="col-md-2">
+        <a th:href="@{/view-cart}" style="text-decoration: none">
+          <h3>
+            <span>
+              <i class="las la-shopping-cart"></i>&nbsp; <span class="badge badge-info" th:text="${cartSize}"></span>
+            </span>
+          </h3>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 p-5">
+        <div class="card shadow rounded mt-3">
+          <img th:src="${book.imgUrl}" class="img-fluid" alt="">
+        </div>
+      </div>
+      <div class="col-md-8 p-5">
+        <h3 th:text="${book.title}" class="text text-info"></h3>
+        <p class="lead">It is published by <span th:text="${book.yearPublished}"></span></p>
+        <p class="lead">It costs $ <span th:text="${book.price}"></span>.</p>
+        <p class="lead">Written by <span th:text="${book.author.name}"></span> </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam atque blanditiis eum illum itaque labore officia, quia rem soluta vel.</p>
+        <div class="">
+          <a th:href="@{/}"><i class="las btn btn-outline-primary btn-lg  la-arrow-circle-left me-2"></i></a>
+          <a th:href="@{/view-cart}" class="float-right"><i class="las la-eye btn btn-outline-warning btn-lg"></i></a>
+          <a th:href="@{'/cart/add-cart?id='+${book.id}}" class="float-right"><i class="las la-cart-plus btn btn-outline-success btn-lg mr-3"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

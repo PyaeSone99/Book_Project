@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html th:replace="layout/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+<style>
+
+</style>
+<body>
+<main role="main">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <div th:if="${success}" class="alert alert-success" role="alert">
+                    <span>Book is Successfully Saved.</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div th:if="${delete}" class="alert alert-danger" role="alert">
+                    <span>Book is Successfully Deleted.</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div th:if="${update}" class="alert alert-warning" role="alert">
+                    <span>Book is Successfully Updated.</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-header">
+                    <h3>Books</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-stripped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Year Published</th>
+                            <th style="width: 40px;">Price&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                            <th>Publisher</th>
+                            <th>Author</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody style="width: 100%">
+                        <form th:action="@{/book/ui/update}" method="post">
+                            <tr th:each="book : ${books}" th:object="${updateBook}" >
+                                <td th:text="${book.id}"></td>
+
+                                <td th:text="${book.title}" th:if="${!book.render}"></td>
+                                <td th:if="${book.render}"><input type="text" th:field="*{title}" class="form-control"></td>
+
+                                <td th:text="${book.yearPublished}" th:if="${!book.render}"></td>
+                                <td th:if="${book.render}"><input type="date" th:field="*{yearPublished}" class="form-control"></td>
+
+                                <td th:text="${book.price}" th:if="${!book.render}"  style="width: 40px"></td>
+                                <td th:if="${book.render}"  style="width: 40px;"><input type="text" th:field="*{price}" class="form-control"></td>
+
+                                <td th:text="${book.publisher}" th:if="${!book.render}"></td>
+                                <td th:if="${book.render}"><input type="text" th:field="*{publisher}" class="form-control"></td>
+
+                                <td th:text="${book.author.name}" th:if="${!book.render}"></td>
+                                <td th:if="${book.render}" th:text="${book.author.name}"></td>
+                                    <td th:if="${!book.render}">
+                                        <a th:href="@{'/book/remove?id=' + ${book.id}}"><i class="las la-trash btn  btn-outline-danger"></i></a>
+                                        <a th:href="@{'/book/ui-update?id=' + ${book.id}}"><i class="las la-edit btn  btn-outline-primary"></i></a>
+                                    </td>
+                                    <td th:if="${book.render}">
+<!--                                        <input type="submit" value="Save" class="btn btn-sm btn-outline-success">-->
+                                        <button type="submit" class="btn btn-outline-success">
+                                            <i class="lar la-save"></i>
+                                        </button>
+                                    </td>
+
+
+                            </tr>
+                        </form>
+
+                        </tbody>
+                    </table>
+                    <a th:href="@{/book-form}" class=" btn btn-primary btn-outline-success text-white">New Book</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

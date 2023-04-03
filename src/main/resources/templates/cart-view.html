@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html th:replace="layout/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+  <div class="container">
+    <div class="row">
+      <div class="col my-3">
+        <div class="card-header">
+          <h3>Cart View</h3>
+        </div>
+        <form th:action="@{/check-out-v2}" th:object="${CartItems}" method="post" >
+        <div th:if="${!cartItems.isEmpty()}">
+          <div class="card-body">
+
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${cartItems}">
+                  <td th:text="${item.id}"></td>
+                  <td th:text="${item.title}"></td>
+                  <td th:text="${item.price}"></td>
+                  <td th:if="${!item.render}" th:text="${item.quantity}"></td>
+                  <td th:if="${item.render}"><input type="number" min="1" th:field="*{quanLinkedList}" class="form-control"></td>
+                  <td><a th:href="@{'/view-cart/remove?id='+${item.id}}"><i class="las la-trash btn btn-lg btn-danger"></i></a></td>
+
+                </tr>
+                </tbody>
+              </table>
+
+
+            <h4 class="text-right text-muted">Total Price :: $<span th:utext="${#numbers.formatDecimal(totalPrice,0,2)}"></span></h4>
+
+          </div>
+
+
+        </div>
+        <div th:if="${cartItems.isEmpty()}" class="alert alert-danger my-3">
+            <span><strong>No Item</strong></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <hr class="my-3">
+        <div class="">
+          <a th:href="@{/home}" class="btn btn-outline-primary btn-lg">Continue Shopping</a>
+          <a th:href="@{/view-cart/clear}" class="btn btn-outline-danger btn-lg">Clear</a>
+          <a th:if="${!changeButton}" th:href="@{/check-out-v1}" class="btn btn-outline-success btn-lg">Check Out</a>
+          <button type="submit" th:if="${changeButton}" th:href="@{/check-out-v2}" class="btn btn-outline-success btn-lg">Save</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

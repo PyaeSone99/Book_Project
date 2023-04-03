@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html th:replace="layout/masterLayout :: layout(~{::main})" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main role="main">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Book Form</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/book/update}" method="post" th:object="${book}">
+                            <div class="form-group">
+                                <label for="title">Book Title</label>
+                                <input type="text" id="title" class="form-control" th:field="*{title}" th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'">
+                                <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" step="any" id="price" class="form-control" th:field="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid'">
+                                <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="invalid-feedback"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="yearPublished">yearPublished</label>
+                                <input type="date" id="yearPublished" class="form-control" th:field="*{yearPublished}" th:classappend="${#fields.hasErrors('yearPublished')} ? 'is-invalid'">
+                                <small th:if="${#fields.hasErrors('yearPublished')}" th:errors="*{yearPublished}" class="invalid-feedback"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="publisher">Publisher</label>
+                                <input type="text" id="publisher" class="form-control" th:field="*{publisher}" th:classappend="${#fields.hasErrors('publisher')} ? 'is-invalid'">
+                                <small th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="invalid-feedback"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="img">Image</label>
+                                <input type="text" id="img" class="form-control" th:field="*{imgUrl}" th:classappend="${#fields.hasErrors('imgUrl')} ? 'is-invalid'">
+                                <small th:if="${#fields.hasErrors('imgUrl')}" th:errors="*{imgUrl}" class="invalid-feedback"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Authors</label>
+                                <select name="" id="" class="form-control" th:field="*{author.id}">
+                                    <option th:each="au : ${authors}" th:value="${au.id}" th:text="${au.name}"></option>
+                                </select>
+                            </div>
+                            <input type="submit" value="Update Book" class="btn btn-success btn-outline-success btn-block text-white">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

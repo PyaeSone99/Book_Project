@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg bg-light navbar-light mt-3 mx-4 rounded">
+  <div class="container-fluid mx-5">
+
+    <a th:href="@{/}" class="navbar-brand text-danger"> <h3><i class="las la-swatchbook"></i> &nbsp;Book</h3></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto d-flex align-items-center ">
+        <li class="nav-item">
+          <a th:href="@{/home}" class="nav-link text-danger  m-auto fw-bold text-uppercase">Home</a>
+        </li>
+        <li class="nav-item ">
+          <a th:href="@{/authors}" class="nav-link text-uppercase">Authors</a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/list-books}" class="nav-link text-uppercase">Book</a>
+        </li>
+        <li class="nav-item d-flex" sec:authorize="!isAuthenticated()">
+          <a th:href="@{/sign-up}" class="nav-link text-uppercase">Sign Up</a>
+          <a th:href="@{/login}" class="nav-link text-uppercase">Login</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a href="javascript: document.logoutForm.submit()" class="nav-link text-uppercase">LogOut</a>
+          <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+            <button type="submit" hidden >Sign Out</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
+</body>
+</html>
